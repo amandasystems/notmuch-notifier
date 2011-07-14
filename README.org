@@ -1,0 +1,15 @@
+* About
+notmuch-notifier is a gnome-based tray application similar to most gmail notifiers. I wrote it out of personal need, when I was about to switch from my old xmobar-based notification system for email to a Gnome-panel based one. It reads at least one query from a configuration file and displays results in the mose-over tooltip, both hit count and (if any) matching subjects.
+
+Please note that notmuch-notifer doesn't use the Python notmuch bindings, since they just segfaulted all the time in combination with my poller thread. Suggestions are welcome, of course.
+* Usage and features
+Edit ~/.config/notmuch-notifier/queries to add one query per line, separated by newlines (something like »tag:personal and tag:inbox« is what I use), and run notmuch-notifier. The queries goes directly to »notmuch search«, so be careful.
+* Requirements
+- PyGTK, basically (and the standard Python library)
+- a correctly set up notmuch binary (it may be an SSH wrapper script if you want – I think)
+* License and copying
+- Licenced under GPLv3 or later.
+* Known issues and planned features
+- notmuch-notifier seems to crash with a memory error on extremely large queries.
+- there is no GUI-based way to configure notmuch-notifier yet – it's planned, though.
+- there is currently no handling of errors from notmuch in the poller thread, meaning bad things will happen if you write bad queries.
