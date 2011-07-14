@@ -84,6 +84,10 @@ class NotmuchMonitor():
                                      stderr = subprocess.PIPE)
 
                 stdout, stderr = p.communicate()
+                if stderr:
+                    error_dialog("Notmuch binary returned error: %s", paren=self)
+                    self.quit = True
+                    exit()
                 answer = json.loads(stdout)
                 wrapper = textwrap.TextWrapper(width=70,
                                                initial_indent="\t",
@@ -97,10 +101,9 @@ class NotmuchMonitor():
                 if hits > 0:
                     new_mail = True
                     result += "\n%s" % subjects
-                # IF NOT last line:
                 result = result + "\n"
 
-            gobject.idle_add(self.update_status, new_mail, result)
+            gobject.idle_add(self.update_status, new_mail, result.strip())
         
             #print "sleeping"
             time.sleep(2)
@@ -121,7 +124,7 @@ if not os.path.exists(CONFIG_DIR):
 
 if not os.path.exists(os.path.join(CONFIG_DIR, "queries")):
     print "Error: can't find configuration file"
-    error_dialog("Error: can't find configuration file")
+    error_dialog("Error: can't find configuration file in %s." % CONFIG_DIR)
     exit
 else:
     qs = []
