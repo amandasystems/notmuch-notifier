@@ -61,7 +61,13 @@ class NotmuchMonitor():
             #self.statusicon.set_blinking(False)
 
         self.statusicon.set_tooltip(tooltip)
-        
+
+    def on_error(self, message):
+        md = gtk.MessageDialog(self, 
+                               gtk.DIALOG_DESTROY_WITH_PARENT, gtk.MESSAGE_ERROR, 
+                               gtk.BUTTONS_CLOSE, "Error loading file")
+        md.run()
+        md.destroy()
 
     def poll_notmuch(self):
         while not self.quit:
@@ -99,6 +105,15 @@ class NotmuchMonitor():
             #print "sleeping"
             time.sleep(2)
 
+def error_dialog(message, paren=None):
+    md = gtk.MessageDialog(parent=paren,
+                           type=gtk.MESSAGE_ERROR,
+                           flags=gtk.DIALOG_DESTROY_WITH_PARENT,
+                           message_format=message,
+                           buttons = gtk.BUTTONS_OK)
+    md.run()
+    md.destroy()
+
 
 CONFIG_DIR = os.path.expanduser("~/.config/notmuch-notifier")
 if not os.path.exists(CONFIG_DIR):
@@ -106,7 +121,7 @@ if not os.path.exists(CONFIG_DIR):
 
 if not os.path.exists(os.path.join(CONFIG_DIR, "queries")):
     print "Error: can't find configuration file"
-    # todo: also display a graphical error message
+    error_dialog("Error: can't find configuration file")
     exit
 else:
     qs = []
@@ -117,10 +132,8 @@ else:
 
     if qs == []:
         print "Error: no parsable queries found in config file"
-        # todo: display a graphical error message
+        error_dialog("Error: can't find configuration file")
         exit
     nm = NotmuchMonitor(qs)
     gtk.main()
     nm.quit = True
-                          
-
