@@ -13,6 +13,5 @@ Edit ~/.config/notmuch-notifier/queries to add one query per line, separated by 
 - notmuch-notifier seems to crash with a memory error on extremely large queries.
 - there is no GUI-based way to configure notmuch-notifier yet – it's planned, though.
 - there is currently no handling of errors from notmuch in the poller thread, meaning bad things will happen if you write bad queries.
-- all error handling is command-line-based: GUI warnings/errors are needed.
 - some kind of link back to notmuch/emacs would be nice, and probably doable through emacsclient.
 
