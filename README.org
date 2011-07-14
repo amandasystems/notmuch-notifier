@@ -1,5 +1,5 @@
 * About
-notmuch-notifier is a gnome-based tray application similar to most gmail notifiers. I wrote it out of personal need, when I was about to switch from my old xmobar-based notification system for email to a Gnome-panel based one. It reads at least one query from a configuration file and displays results in the mose-over tooltip, both hit count and (if any) matching subjects.
+notmuch-notifier is a gnome-based tray application similar to most gmail notifiers. I wrote it out of personal need, when I was about to switch from my old xmobar-based notification system for email to a Gnome-panel based one. It reads at least one query from a configuration file and displays results in the mouse-over tooltip, both hit count and (if any) matching subjects.
 
 Please note that notmuch-notifer doesn't use the Python notmuch bindings, since they just segfaulted all the time in combination with my poller thread. Suggestions are welcome, of course.
 * Usage and features
