@@ -85,11 +85,11 @@ class NotmuchMonitor():
 
                 stdout, stderr = p.communicate()
                 if stderr:
-                    error_dialog("Notmuch binary returned error: %s", paren=self)
-                    self.quit = True
-                    exit()
+                    error_dialog("Notmuch binary returned error: %s" % stderr)
+                    #self.quit = True
+                    #exit()
                 answer = json.loads(stdout)
-                wrapper = textwrap.TextWrapper(width=70,
+                wrapper = textwrap.TextWrapper(width=50,
                                                initial_indent="\t",
                                                subsequent_indent="\t\t")
                 if answer:
